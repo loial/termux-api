@@ -27,6 +27,13 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
+    <!-- Following permissions won't work on non-rooted devices, unless granted via ADB: -->
+    <!-- adb shell pm grant com.termux.api android.permission.READ_LOGS -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- adb shell pm grant com.termux.api android.permission.WRITE_SECURE_SETTINGS -->
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+
+
     <!-- Some of the used permissions imply uses-feature, so we need to make it optional.
          See http://developer.android.com/guide/topics/manifest/uses-feature-element.html#permissions -->
     <uses-feature android:name="android.hardware.camera" android:required="false" />
