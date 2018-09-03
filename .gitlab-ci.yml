@@ -1,0 +1,27 @@
+cache:
+  paths:
+    - .m2/
+    - .gradle
+
+variables:
+  ANDROID_COMPILE_SDK: "28"
+  ANDROID_BUILD_TOOLS: "25.0.2"
+  ANDROID_SDK_TOOLS: "26.1.1"
+  ANDROID_HOME: "/opt/android-sdk"
+before_script:
+  - $ANDROID_HOME/tools/bin/sdkmanager --update > update.log
+  - $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" > installPlatform.log
+
+stages:
+  - build
+
+build:
+  stage: build
+  script:
+    - export PATH=$PATH:$ANDROID_HOME/platform-tools/
+    - chmod +x ./gradlew
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+    - app/build/outputs/
+  when: manual
